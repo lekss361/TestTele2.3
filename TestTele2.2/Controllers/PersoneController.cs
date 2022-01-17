@@ -33,18 +33,18 @@ namespace TestTele2._2.Controllers
 
         // Persone/{PersoneId}
         [HttpGet("{PersoneId}")]
-        public Persone GetPersoneById(string PersoneId)
+        public Persone GetPersoneById(string personeId)
         {
             using (var context = new DbTestTele2Context())
             {
-                var personeById = context.Persones.Find(PersoneId);
-                return personeById;
+                return context.Persones.Find(personeId);
             }
         }
 
+        // Persone/PageNumber/{pageNumber}
         [HttpGet("PageNumber/{pageNumber}")]
         public List<WebPersoneOutPut> GetPersonesByPage(int pageNumber)
-        { // текущая страница
+        {
             int pageSize = 5; // кол-во элементов на странице
             int count = 0; // сколько всего элементов
             List<WebPersoneOutPut> pagePersones = new List<WebPersoneOutPut>();
@@ -70,7 +70,8 @@ namespace TestTele2._2.Controllers
 
         }
 
-        [HttpGet("Sex/{sex}")]
+        // Persone/sex/{sex}
+        [HttpGet("sex/{sex}")]
         public List<WebPersoneOutPut> GetPersonesBySex(string sex)
         {
             List<WebPersoneOutPut> sortpersones = new List<WebPersoneOutPut>();
@@ -80,6 +81,7 @@ namespace TestTele2._2.Controllers
                 var query = from p in context.Persones
                             where p.Sex == sex
                             select new { p.Id, p.Name, p.Sex };
+
                 foreach (var item in query)
                 {
                     WebPersoneOutPut webPersoneOutPut = new WebPersoneOutPut();
@@ -93,13 +95,14 @@ namespace TestTele2._2.Controllers
             return sortpersones;
         }
 
+        // Persone/SortAgeFromMinToMax/min/{min}/max/{max}
         [HttpGet("SortAgeFromMinToMax/min/{min}/max/{max}")]
         public List<Persone> GetPersonesSortAgeFromMinToMax(int min, int max)
         {
             using (var context = new DbTestTele2Context())
             {
                 var query = from p in context.Persones
-                            where p.Age>min & p.Age<max
+                            where p.Age > min & p.Age < max
                             select p;
                return query.ToList();
             }

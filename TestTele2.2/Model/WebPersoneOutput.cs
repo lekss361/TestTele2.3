@@ -1,10 +1,10 @@
 ﻿namespace TestTele2._2.Model
 {
-    public class WebPersoneInput
+    public class WebPersoneOutPut
     {
-        public string id { get; set; }
-        public string name { get; set; }
-        public string sex { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Sex { get; set; }
     }
 
 }
